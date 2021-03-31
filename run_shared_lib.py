@@ -6,7 +6,7 @@ if platform.system() == "Linux":
 elif platform.system() == "Darwin":
     filename = "libmain.dylib"
 elif platform.system() == "Windows":
-    filename = "libmain.dll"
+    filename = "main.dll"
 else:
     filename = ""
 assert filename, "Unknown platform"
