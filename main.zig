@@ -1,11 +1,12 @@
 const std = @import("std");
-const expect = @import("std").testing.expect;
-const print = @import("std").debug.print;
-const eql = @import("std").mem.eql;
-const meta = @import("std").meta;
+const ArrayList = std.ArrayList;
+const expect = std.testing.expect;
+const print = std.debug.print;
+const eql = std.mem.eql;
+const meta = std.meta;
 const Vector = meta.Vector;
-const len = @import("std").mem.len;
-const test_allocator = @import("std").testing.allocator;
+const len = std.mem.len;
+const test_allocator = std.testing.allocator;
 
 pub fn main() void {
     print("Hello, {s}!\n", .{"World"});
@@ -440,6 +441,20 @@ test "random numbers" {
     const b = rand.boolean();
     const c = rand.int(u8);
     const d = rand.intRangeAtMost(u8, 0, 255);
+}
+
+test "arraylist" {
+    // test_allocator only works in tests
+    var list = ArrayList(u8).init(test_allocator);
+    defer list.deinit();
+    try list.append('H');
+    try list.append('e');
+    try list.append('l');
+    try list.append('l');
+    try list.append('o');
+    try list.appendSlice(" World!");
+
+    expect(eql(u8, list.items, "Hello World!"));
 }
 
 test "hash map" {
