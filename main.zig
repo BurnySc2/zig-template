@@ -18,6 +18,10 @@ fn fibonacci(n: u16) u16 {
     return fibonacci(n - 1) + fibonacci(n - 2);
 }
 
+export fn add(a: i32, b: i32) i32 {
+    return a + b;
+}
+
 // Tests
 test "if statement" {
     const a = true;
@@ -65,4 +69,24 @@ test "for" {
 test "function recursion" {
     const x = fibonacci(10);
     expect(x == 55);
+}
+
+test "defer" {
+    var x: i16 = 5;
+    {
+        // defer is executed when exiting the block
+        defer x += 2;
+        expect(x == 5);
+    }
+    expect(x == 7);
+}
+
+test "multi defer" {
+    var x: f32 = 5;
+    {
+        // defers are executed in reverse order
+        defer x += 2;
+        defer x /= 2;
+    }
+    expect(x == 4.5);
 }

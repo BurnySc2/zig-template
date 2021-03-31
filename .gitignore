@@ -16,4 +16,9 @@ zig-cache/
 /build-*/
 /docgen_tmp/
 
+# Pycharm
 .idea
+
+# Shared library
+*.so
+

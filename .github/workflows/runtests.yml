@@ -9,13 +9,20 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
+        zig-version: [ 0.6.0, 0.7.0, 0.7.1 ]
+        python-version: [ 3.7, 3.8, 3.9 ]
 
     steps:
       - uses: actions/checkout@v2
 
       - uses: goto-bus-stop/setup-zig@v1
         with:
-          version: 0.7.1
+          version: ${{ matrix.zig-version }}
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
 
       - name: Check formatting
         run: |
@@ -23,8 +30,24 @@ jobs:
 
       - name: Run tests
         run: |
-          zig test main.zig
+          zig test *.zig
 
       - name: Run main.zig
         run: |
           zig run main.zig
+
+      - name: Create shared lib
+        run: |
+          zig build-lib main.zig -dynamic
+
+      - name: Run python script with shared lib (linux and mac)
+        run: |
+          ls
+          python run_shared_lib.py
+        if: matrix.os != 'windows-latest'
+
+      - name: Run python script with shared lib (windows)
+        run: |
+          dir
+          python run_shared_lib.py
+        if: matrix.os == 'windows-latest'
