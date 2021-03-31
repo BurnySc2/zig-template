@@ -13,4 +13,4 @@ assert filename, "Unknown platform"
 
 mylib = ctypes.CDLL(f"./{filename}")
 print(mylib.add(400, 400))  # prints 800
-assert mylib.add == 800
+assert mylib.add(400, 400) == 800
