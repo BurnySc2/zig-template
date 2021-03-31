@@ -13,13 +13,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          version: 0.7.1
+          version: 0.7.0
 
       - uses: goto-bus-stop/setup-zig@v1
 
-      - name: Check formatting
-        run: |
-          zig fmt --check main.zig
+#      - name: Check formatting
+#        run: |
+#          zig fmt --check main.zig
 
       - name: Run tests
         run: |

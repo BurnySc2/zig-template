@@ -1,12 +1,13 @@
 const std = @import("std");
 const expect = @import("std").testing.expect;
+const print = @import("std").debug.print;
 
 pub fn main() void {
-    std.debug.print("Hello, {s}!\n", .{"World"});
+    print("Hello, {s}!\n", .{"World"});
 
     const string = [_]u8{ 'a', 'b', 'c' };
     for (string) |character, index| {
-        std.debug.print("Counting: {d}!\n", .{character});
+        print("Counting: {d}!\n", .{character});
     }
 }
 
