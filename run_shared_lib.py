@@ -2,14 +2,13 @@ import ctypes
 import platform
 from time import perf_counter_ns
 
+filename = ""
 if platform.system() == "Linux":
     filename = "libmain.so"
 elif platform.system() == "Darwin":
     filename = "libmain.dylib"
 elif platform.system() == "Windows":
     filename = "main.dll"
-else:
-    filename = ""
 assert filename, "Unknown platform"
 
 mylib = ctypes.CDLL(f"./{filename}")
@@ -23,5 +22,4 @@ for i in range(run_amount):
 t1 = perf_counter_ns()
 
 total_time_ns = (t1 - t0) // run_amount
-time_in_ms = total_time_ns / 10 ** 6
-print(f"Program took {time_in_ms:.3f} milliseconds")
+print(f"Program took {total_time_ns} nanoseconds")

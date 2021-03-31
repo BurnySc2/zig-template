@@ -55,7 +55,7 @@ jobs:
 
       - name: Create executable
         run: |
-          zig build-exe main.zig
+          zig build-exe main.zig -O ReleaseSafe
 
       - name: Run executable (linux and mac)
         run: |

@@ -2,14 +2,13 @@ from time import perf_counter_ns
 import subprocess
 import platform
 
+filename = ""
 if platform.system() == "Linux":
     filename = "./main"
 elif platform.system() == "Darwin":
     filename = "./main"
 elif platform.system() == "Windows":
     filename = "./main.exe"
-else:
-    filename = ""
 assert filename, "Unknown platform"
 
 run_amount = 1000
