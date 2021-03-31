@@ -1,0 +1,30 @@
+name: RunTests
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          version: 0.7.1
+
+      - uses: goto-bus-stop/setup-zig@v1
+
+      - name: Check formatting
+        run: |
+          zig fmt --check main.zig
+
+      - name: Run tests
+        run: |
+          zig test main.zig
+
+      - name: Run main.zig
+        run: |
+          zig run main.zig
