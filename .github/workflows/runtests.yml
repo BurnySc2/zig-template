@@ -52,3 +52,19 @@ jobs:
           dir
           python run_shared_lib.py
         if: matrix.os == 'windows-latest'
+
+      - name: Create executable
+        run: |
+          zig build-exe main.zig
+
+      - name: Run executable (linux and mac)
+        run: |
+          ls
+          python time_program.py
+        if: matrix.os != 'windows-latest'
+
+      - name: Run executable (windows)
+        run: |
+          dir
+          python time_program.py
+        if: matrix.os != 'windows-latest'
