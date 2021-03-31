@@ -15,7 +15,7 @@ assert filename, "Unknown platform"
 run_amount = 1000
 t0 = perf_counter_ns()
 for i in range(run_amount):
-    process = subprocess.Popen([filename])
+    process = subprocess.Popen([filename], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     process.wait()
 t1 = perf_counter_ns()
 
